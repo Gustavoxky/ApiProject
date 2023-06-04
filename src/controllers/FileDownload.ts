@@ -17,7 +17,7 @@ export class FileDownload {
         return res.status(404).send('Imagem não encontrada.');
       }
 
-      const filePath = path.join(__dirname, '..', 'uploads', image.path);
+      const filePath = path.join(__dirname, '..', '..', 'uploads', image.path);
 
       res.download(filePath);
     } catch (error) {
