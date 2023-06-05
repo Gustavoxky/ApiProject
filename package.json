@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/server.ts"
+    "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/server.ts",
+    "test": "jest",
+    "testServer": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/testServer.ts"
   },
   "dependencies": {
     "@prisma/client": "4.15.0",
@@ -17,9 +19,15 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
+    "@types/jest": "^29.5.2",
     "@types/multer": "^1.4.7",
     "@types/node-fetch": "^2.6.4",
+    "@types/supertest": "^2.0.12",
+    "babel-jest": "^29.5.0",
+    "jest": "^29.5.0",
     "multer": "^1.4.5-lts.1",
-    "prisma": "^4.15.0"
+    "prisma": "^4.15.0",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.1.0"
   }
 }

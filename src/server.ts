@@ -2,7 +2,7 @@ import express from "express";
 import path from "path";
 import router from "./routes";
 
-const app = express()
+export const app = express()
 
 app.use(express.json())
 app.use(router)

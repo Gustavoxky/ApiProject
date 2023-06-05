@@ -24,7 +24,7 @@ export class DeleteUsers {
         }
       });
 
-      return res.json({ message: "Usuário excluído com sucesso" });
+      return res.status(200).json({ message: "Usuário excluído com sucesso" });
     } catch (error) {
       return res.status(500).json({ error: "Ocorreu um erro ao excluir o usuário" });
     }

@@ -44,7 +44,7 @@ export class CreateUsers {
         },
       });
 
-      return res.json(user);
+      return res.status(200).json(user);
     } catch (error) {
       // Tratar erros
       console.error(error);
@@ -54,7 +54,7 @@ export class CreateUsers {
 }
 
 // Função para validar o formato de e-mail
-function validateEmail(email: string) {
+export function validateEmail(email: string) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }

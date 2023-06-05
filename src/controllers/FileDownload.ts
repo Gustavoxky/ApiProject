@@ -19,7 +19,7 @@ export class FileDownload {
 
       const filePath = path.join(__dirname, '..', '..', 'uploads', image.path);
 
-      res.download(filePath);
+      res.status(200).download(filePath);
     } catch (error) {
       console.error('Erro ao fazer download da imagem:', error);
       res.status(500).send('Erro ao fazer download da imagem.');
