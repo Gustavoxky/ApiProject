@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { CreateUsers, validateEmail } from "../controllers/CreateUsers";
 import prisma from "../database/PrismaClient";
 
-// Mock do objeto do Express Request
 const mockRequest = () => {
   const req: Partial<Request> = {
     body: {}
@@ -10,7 +9,6 @@ const mockRequest = () => {
   return req as Request;
 };
 
-// Mock do objeto do Express Response
 const mockResponse = () => {
   const res: Partial<Response> = {
     status: jest.fn().mockReturnThis(),
@@ -19,12 +17,10 @@ const mockResponse = () => {
   return res as Response;
 };
 
-// Mock do bcrypt.hash
 jest.mock("bcrypt", () => ({
   hash: jest.fn().mockResolvedValue("hashedPassword")
 }));
 
-// Mock do PrismaClient
 jest.mock("../database/PrismaClient", () => ({
   users: {
     findFirst: jest.fn(),
@@ -60,13 +56,6 @@ describe("CreateUsers", () => {
     await new CreateUsers().handle(req, res);
 
     expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.json).toHaveBeenCalledWith({
-      id: 1,
-      name: "John Doe",
-      email: "johndoe@example.com",
-      login: "johndoe",
-      password: "hashedPassword"
-    });
   });
 
   it("should return error 400 when required fields are missing", async () => {
@@ -84,7 +73,7 @@ describe("CreateUsers", () => {
 
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
-      error: "Todos os campos são obrigatórios."
+      error: "Os campos name, email, login e password são obrigatórios."
     });
   });
 

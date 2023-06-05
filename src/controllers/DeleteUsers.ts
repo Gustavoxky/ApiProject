@@ -6,7 +6,6 @@ export class DeleteUsers {
     const { name } = req.params;
 
     try {
-      // Verificar se o usuário existe
       const user = await prisma.users.findUnique({
         where: {
           name
@@ -17,7 +16,6 @@ export class DeleteUsers {
         return res.status(404).json({ error: "Usuário não encontrado" });
       }
 
-      // Excluir o usuário
       await prisma.users.delete({
         where: {
           name

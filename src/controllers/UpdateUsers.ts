@@ -3,11 +3,9 @@ import prisma from "../database/PrismaClient";
 
 export class UpdateUsers {
   async handle(req: Request, res: Response) {
-    // const { name } = req.params;
     const { name, email, login, password } = req.body;
 
     try {
-      // Verificar se o usuário existe
       const existingUser = await prisma.users.findUnique({
         where: {
           name
@@ -18,7 +16,6 @@ export class UpdateUsers {
         return res.status(404).json({ error: "Usuário não encontrado" });
       }
 
-      // Atualizar os dados do usuário
       const updatedUser = await prisma.users.update({
         where: {
           name

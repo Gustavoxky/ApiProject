@@ -33,7 +33,6 @@ describe("FileDownload", () => {
 
   describe("download", () => {
     test("should send 404 if image is not found", async () => {
-      // Mock prisma.image.findUnique to return null
       (prisma.image.findUnique as jest.Mock).mockResolvedValue(null);
 
       await fileDownload.download(req, res);
@@ -44,7 +43,6 @@ describe("FileDownload", () => {
     });
 
     test("should download the file if image is found", async () => {
-      // Mock prisma.image.findUnique to return a mock image
       const mockImage = {
         id: "exampleId",
         path: "examplePath",
@@ -61,7 +59,6 @@ describe("FileDownload", () => {
     });
 
     test("should send 500 if an error occurs", async () => {
-      // Mock prisma.image.findUnique to throw an error
       (prisma.image.findUnique as jest.Mock).mockRejectedValue(new Error());
 
       await fileDownload.download(req, res);

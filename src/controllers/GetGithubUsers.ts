@@ -12,7 +12,7 @@ export class GetGithubUsers {
       return res.json(userData);
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ error: 'An error occurred' });
+      return res.status(500).json({ error: 'Erro ao se conectar com a API do Github' });
     }
   }
 }

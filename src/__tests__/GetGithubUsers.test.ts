@@ -56,6 +56,6 @@ describe('GetGithubUsers', () => {
     expect(fetch).toBeCalledWith('https://api.github.com/users/gustavoxky');
     expect(consoleErrorSpy).toBeCalledWith(mockError);
     expect(res.status).toBeCalledWith(500);
-    expect(res.json).toBeCalledWith({ error: 'An error occurred' });
+    expect(res.json).toBeCalledWith({ error: 'Erro ao se conectar com a API do Github' });
   });
 });
