@@ -18,7 +18,7 @@ describe("DeleteUsers", () => {
     const deleteUsers = new DeleteUsers();
     const req = {
       params: {
-        name: "nome_inexistente"
+        id: "1"
       }
     } as unknown as Request;
     const res = {
@@ -38,7 +38,7 @@ describe("DeleteUsers", () => {
     const deleteUsers = new DeleteUsers();
     const req = {
       params: {
-        name: "nome_existente"
+        id: "1"
       }
     } as unknown as Request;
     const res = {
@@ -47,7 +47,7 @@ describe("DeleteUsers", () => {
     } as unknown as Response;
 
     (prisma.users.findUnique as jest.Mock).mockResolvedValue({
-      name: "nome_existente"
+      id: "1"
     });
     (prisma.users.delete as jest.Mock).mockResolvedValue({});
 
@@ -63,7 +63,7 @@ describe("DeleteUsers", () => {
     const deleteUsers = new DeleteUsers();
     const req = {
       params: {
-        name: "nome_existente"
+        id: "1"
       }
     } as unknown as Request;
     const res = {
@@ -72,7 +72,7 @@ describe("DeleteUsers", () => {
     } as unknown as Response;
 
     (prisma.users.findUnique as jest.Mock).mockResolvedValue({
-      name: "nome_existente"
+      id: "1"
     });
     (prisma.users.delete as jest.Mock).mockRejectedValue(
       new Error("Erro ao excluir o usuário")

@@ -8,7 +8,8 @@ datasource db {
 }
 
 model Users {
-  name     String @id
+  id       String @id @default(uuid())
+  name     String
   email    String @unique
   login    String @unique
   password String @unique
@@ -20,12 +21,16 @@ model Post {
   id          String   @id @default(uuid())
   description String
   createdAt   DateTime @default(now())
-  images      Image[]
+  files      File[]
+
+  @@map("post")
 }
 
-model Image {
+model File {
   id     String @id @default(uuid())
   path   String
   post   Post   @relation(fields: [postId], references: [id])
   postId String
+
+  @@map("file")
 }

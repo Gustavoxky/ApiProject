@@ -18,6 +18,7 @@ describe("UpdateUsers", () => {
     const updateUsers = new UpdateUsers();
     const req = {
       body: {
+        id: "1",
         name: "User 1",
         email: "user1@example.com",
         login: "user1",
@@ -29,6 +30,7 @@ describe("UpdateUsers", () => {
     } as unknown as Response;
 
     const existingUser = {
+      id: "1",
       name: "User 1",
       email: "user1@example.com",
       login: "user1",
@@ -36,6 +38,7 @@ describe("UpdateUsers", () => {
     };
 
     const updatedUser = {
+      id: "1",
       name: "User 1",
       email: "updateduser1@example.com",
       login: "updateduser1",
@@ -49,14 +52,15 @@ describe("UpdateUsers", () => {
 
     expect(prisma.users.findUnique).toBeCalledWith({
       where: {
-        name: "User 1"
+        id: "1"
       }
     });
     expect(prisma.users.update).toBeCalledWith({
       where: {
-        name: "User 1"
+        id: "1"
       },
       data: {
+        id: "1",
         name: "User 1",
         email: "user1@example.com",
         login: "user1",
@@ -70,6 +74,7 @@ describe("UpdateUsers", () => {
     const updateUsers = new UpdateUsers();
     const req = {
       body: {
+        id: "2",
         name: "User 2",
         email: "user2@example.com",
         login: "user2",
@@ -87,7 +92,7 @@ describe("UpdateUsers", () => {
 
     expect(prisma.users.findUnique).toBeCalledWith({
       where: {
-        name: "User 2"
+        id: "2"
       }
     });
     expect(res.status).toBeCalledWith(404);
@@ -98,6 +103,7 @@ describe("UpdateUsers", () => {
     const updateUsers = new UpdateUsers();
     const req = {
       body: {
+        id: "3",
         name: "User 3",
         email: "user3@example.com",
         login: "user3",
@@ -116,7 +122,7 @@ describe("UpdateUsers", () => {
 
     expect(prisma.users.findUnique).toBeCalledWith({
       where: {
-        name: "User 3"
+        id: "3"
       }
     });
     expect(res.status).toBeCalledWith(500);

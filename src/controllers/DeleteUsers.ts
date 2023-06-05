@@ -3,12 +3,12 @@ import prisma from "../database/PrismaClient";
 
 export class DeleteUsers {
   async handle(req: Request, res: Response) {
-    const { name } = req.params;
+    const { id } = req.params;
 
     try {
       const user = await prisma.users.findUnique({
         where: {
-          name
+          id
         }
       });
 
@@ -18,7 +18,7 @@ export class DeleteUsers {
 
       await prisma.users.delete({
         where: {
-          name
+          id
         }
       });
 
