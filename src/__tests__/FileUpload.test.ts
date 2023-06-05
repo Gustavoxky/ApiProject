@@ -19,7 +19,7 @@ describe("FileUpload", () => {
     jest.clearAllMocks();
   });
 
-  it("Deve criar um novo post com as imagens fornecidas", async () => {
+  it("Deve criar um novo post com os arquivos fornecidas", async () => {
     const fileUpload = new FileUpload();
     const req = {
       body: {
@@ -27,10 +27,10 @@ describe("FileUpload", () => {
       },
       files: [
         {
-          filename: "image1.jpg",
+          filename: "image.jpg",
         },
         {
-          filename: "image2.jpg",
+          filename: "audio.mp3",
         },
       ],
     } as Request;
@@ -40,12 +40,12 @@ describe("FileUpload", () => {
 
     const createdPost = {
       description: "Descrição do post",
-      images: [
+      files: [
         {
-          path: "image1.jpg",
+          path: "image.jpg",
         },
         {
-          path: "image2.jpg",
+          path: "audio.mp3",
         },
       ],
     };
@@ -58,20 +58,20 @@ describe("FileUpload", () => {
     expect(prismaClientMock.post.create).toBeCalledWith({
       data: {
         description: "Descrição do post",
-        images: {
+        files: {
           create: [
             {
-              path: "image1.jpg",
+              path: "image.jpg",
             },
             {
-              path: "image2.jpg",
+              path: "audio.mp3",
             },
           ],
         },
       },
       select: {
         description: true,
-        images: true,
+        files: true,
       },
     });
     expect(res.json).toBeCalledWith(createdPost);

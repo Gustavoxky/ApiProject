@@ -8,22 +8,22 @@ export class FileUpload {
     const { description } = req.body;
     const requestImages = req.files as Express.Multer.File[];
 
-    const images = requestImages.map((Image) => {
+    const files = requestImages.map((File) => {
       return {
-        path: Image.filename,
+        path: File.filename,
       };
     });
 
     const post = await prisma.post.create({
       data: {
         description,
-        images: {
-          create: images,
+        files: {
+          create: files,
         },
       },
       select: {
         description: true,
-        images: true,
+        files: true,
       },
     });
 

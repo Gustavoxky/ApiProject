@@ -3,7 +3,7 @@ import { FileDownload } from "../controllers/FileDownload";
 import prisma from "../database/PrismaClient";
 
 jest.mock("../database/PrismaClient", () => ({
-  image: {
+  file: {
     findUnique: jest.fn(),
   },
 }));
@@ -32,8 +32,8 @@ describe("FileDownload", () => {
   });
 
   describe("download", () => {
-    test("should send 404 if image is not found", async () => {
-      (prisma.image.findUnique as jest.Mock).mockResolvedValue(null);
+    test("should send 404 if file is not found", async () => {
+      (prisma.file.findUnique as jest.Mock).mockResolvedValue(null);
 
       await fileDownload.download(req, res);
 
@@ -42,12 +42,12 @@ describe("FileDownload", () => {
       expect(res.download).not.toHaveBeenCalled();
     });
 
-    test("should download the file if image is found", async () => {
+    test("should download the file if file is found", async () => {
       const mockImage = {
         id: "exampleId",
         path: "examplePath",
       };
-      (prisma.image.findUnique as jest.Mock).mockResolvedValue(mockImage);
+      (prisma.file.findUnique as jest.Mock).mockResolvedValue(mockImage);
 
       await fileDownload.download(req, res);
 
@@ -59,7 +59,7 @@ describe("FileDownload", () => {
     });
 
     test("should send 500 if an error occurs", async () => {
-      (prisma.image.findUnique as jest.Mock).mockRejectedValue(new Error());
+      (prisma.file.findUnique as jest.Mock).mockRejectedValue(new Error());
 
       await fileDownload.download(req, res);
 

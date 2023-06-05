@@ -7,17 +7,17 @@ export class FileDownload {
     try {
       const { id } = req.params;
 
-      const image = await prisma.image.findUnique({
+      const file = await prisma.file.findUnique({
         where: {
           id: id,
         },
       });
 
-      if (!image) {
+      if (!file) {
         return res.status(404).send('Imagem não encontrada.');
       }
 
-      const filePath = path.join(__dirname, '..', '..', 'uploads', image.path);
+      const filePath = path.join(__dirname, '..', '..', 'uploads', file.path);
 
       res.status(200).download(filePath);
     } catch (error) {
