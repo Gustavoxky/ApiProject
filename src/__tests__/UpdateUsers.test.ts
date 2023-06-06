@@ -14,18 +14,20 @@ describe("UpdateUsers", () => {
     jest.clearAllMocks();
   });
 
+
   it("Deve atualizar os dados do usuário existente", async () => {
     const updateUsers = new UpdateUsers();
     const req = {
+      params: { id: "1" },
       body: {
-        id: "1",
         name: "User 1 Updated",
         email: "user1@example.com",
         login: "user1",
         password: "password1",
       },
-    } as Request;
+    } as unknown as Request;
     const res = {
+      status: jest.fn().mockReturnThis(),
       json: jest.fn(),
     } as unknown as Response;
 
@@ -68,23 +70,24 @@ describe("UpdateUsers", () => {
       },
     });
 
-    expect(res.json).toBeCalledWith(updatedUser);
+    expect(res.status).toBeCalledWith(200); // Verifica se o status 200 é chamado
+    expect(res.json).toBeCalledWith({ message: "Usuário atualizado com sucesso" });
   });
 
   it("Deve retornar status 404 quando o usuário não existe", async () => {
     const updateUsers = new UpdateUsers();
     const req = {
+      params: { id: "2" },
       body: {
-        id: "2",
         name: "User 2",
         email: "user2@example.com",
         login: "user2",
-        password: "password2"
-      }
-    } as Request;
+        password: "password2",
+      },
+    } as unknown as Request;
     const res = {
       status: jest.fn().mockReturnThis(),
-      json: jest.fn()
+      json: jest.fn(),
     } as unknown as Response;
 
     (prisma.users.findUnique as jest.Mock).mockResolvedValue(null);
@@ -103,17 +106,17 @@ describe("UpdateUsers", () => {
   it("Deve retornar status 500 quando ocorrer um erro", async () => {
     const updateUsers = new UpdateUsers();
     const req = {
+      params: { id: "3" },
       body: {
-        id: "3",
         name: "User 3",
         email: "user3@example.com",
         login: "user3",
-        password: "password3"
-      }
-    } as Request;
+        password: "password3",
+      },
+    } as unknown as Request;
     const res = {
       status: jest.fn().mockReturnThis(),
-      json: jest.fn()
+      json: jest.fn(),
     } as unknown as Response;
 
     const mockError = new Error("An error occurred");
@@ -123,8 +126,8 @@ describe("UpdateUsers", () => {
 
     expect(prisma.users.findUnique).toBeCalledWith({
       where: {
-        id: "3"
-      }
+        id: "3",
+      },
     });
     expect(res.status).toBeCalledWith(500);
     expect(res.json).toBeCalledWith({ error: "Ocorreu um erro ao atualizar o usuário" });
