@@ -38,6 +38,11 @@ DATABASE_URL="file:./users.db"
 bash
 yarn prisma migrate dev
 ``` 
+### Para ver os arquivos salvos no DB execute o seguinte comando:
+```
+bash
+yarn prisma studio
+```
 
 # Executando o Projeto
 
