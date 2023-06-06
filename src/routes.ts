@@ -1,6 +1,7 @@
 import { Router } from "express";
 import multer from "multer";
 import uploadsConfig from './config/Multer';
+import { CreateUsers } from "./controllers/CreateUsers";
 import { DeleteUsers } from "./controllers/DeleteUsers";
 import { FileDownload } from "./controllers/FileDownload";
 import { FileUpload } from "./controllers/FileUpload";
@@ -8,7 +9,6 @@ import { GetFileUpload } from "./controllers/GetFileUpload";
 import { GetGithubUsers } from "./controllers/GetGithubUsers";
 import { GetUsers } from "./controllers/GetUsers";
 import { UpdateUsers } from './controllers/UpdateUsers';
-import { CreateUsers } from "./controllers/createUsers/CreateUsers";
 
 const router = Router()
 
@@ -28,7 +28,7 @@ router.get("/users", getUsers.handle)
 router.delete("/delete-user/:name", deleteUsers.handle)
 router.put("/user/:name", updateUsers.handle)
 router.post("/upload", upload.array("files"), fileUpload.store);
-router.get("/image", getFileUpload.handle);
+router.get("/files", getFileUpload.handle);
 router.get("/github-user/:username", getGithubUsers.handle);
 router.get('/download/:id', fileDownload.download);
 

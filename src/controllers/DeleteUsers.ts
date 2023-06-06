@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../database/PrismaClient";
-import { Users } from "../types";
+import { Users } from "../interfaces";
 
 export class DeleteUsers {
   async handle(req: Request, res: Response) {

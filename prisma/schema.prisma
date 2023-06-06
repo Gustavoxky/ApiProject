@@ -18,7 +18,8 @@ model Users {
 }
 
 model File {
-  path   String @id
+  id     String @id @default(uuid())
+  path   String
 
   @@map("file")
 }

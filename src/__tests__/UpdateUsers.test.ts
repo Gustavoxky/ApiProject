@@ -19,14 +19,14 @@ describe("UpdateUsers", () => {
     const req = {
       body: {
         id: "1",
-        name: "User 1",
+        name: "User 1 Updated",
         email: "user1@example.com",
         login: "user1",
-        password: "password1"
-      }
+        password: "password1",
+      },
     } as Request;
     const res = {
-      json: jest.fn()
+      json: jest.fn(),
     } as unknown as Response;
 
     const existingUser = {
@@ -34,15 +34,15 @@ describe("UpdateUsers", () => {
       name: "User 1",
       email: "user1@example.com",
       login: "user1",
-      password: "password1"
+      password: "password1",
     };
 
     const updatedUser = {
       id: "1",
-      name: "User 1",
-      email: "updateduser1@example.com",
-      login: "updateduser1",
-      password: "updatedpassword1"
+      name: "User 1 Updated",
+      email: "user1@example.com",
+      login: "user1",
+      password: "password1",
     };
 
     (prisma.users.findUnique as jest.Mock).mockResolvedValue(existingUser);
@@ -52,21 +52,22 @@ describe("UpdateUsers", () => {
 
     expect(prisma.users.findUnique).toBeCalledWith({
       where: {
-        id: "1"
-      }
+        id: "1",
+      },
     });
+
     expect(prisma.users.update).toBeCalledWith({
       where: {
-        id: "1"
+        id: "1",
       },
       data: {
-        id: "1",
-        name: "User 1",
+        name: "User 1 Updated",
         email: "user1@example.com",
         login: "user1",
-        password: "password1"
-      }
+        password: "password1",
+      },
     });
+
     expect(res.json).toBeCalledWith(updatedUser);
   });
 

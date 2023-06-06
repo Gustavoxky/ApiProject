@@ -64,7 +64,7 @@ describe("FileDownload", () => {
       await fileDownload.download(req, res);
 
       expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.send).toHaveBeenCalledWith("Erro ao fazer download da imagem.");
+      expect(res.send).toHaveBeenCalledWith("Erro ao fazer download do arquivo.");
       expect(res.download).not.toHaveBeenCalled();
     });
   });

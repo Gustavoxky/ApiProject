@@ -1,11 +1,11 @@
 import bcrypt from 'bcrypt';
-import { Response } from 'express';
-import prisma from '../../database/PrismaClient';
-import { CreateUserRequest, validateEmail } from './types';
+import { Request, Response } from 'express';
+import prisma from '../database/PrismaClient';
+import { Users, validateEmail } from '../interfaces';
 
 export class CreateUsers {
-  async handle(req: CreateUserRequest, res: Response) {
-    const { name, email, login, password } = req.body;
+  async handle(req: Request, res: Response) {
+    const { name, email, login, password }: Users = req.body;
 
     if (!name || !email || !login || !password) {
       return res.status(400).json({ error: 'Os campos name, email, login e password são obrigatórios.' });

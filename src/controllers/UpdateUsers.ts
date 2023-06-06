@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import prisma from "../database/PrismaClient";
+import { Users } from "../interfaces";
 
 export class UpdateUsers {
   async handle(req: Request, res: Response) {
-    const { id, name, email, login, password } = req.body;
+    const { id, name, email, login, password }: Users = req.body;
 
     try {
-      const existingUser = await prisma.users.findUnique({
+      const existingUser: Users | null = await prisma.users.findUnique({
         where: {
           id
         }
@@ -16,12 +17,11 @@ export class UpdateUsers {
         return res.status(404).json({ error: "Usuário não encontrado" });
       }
 
-      const updatedUser = await prisma.users.update({
+      const updatedUser: Users = await prisma.users.update({
         where: {
           id
         },
         data: {
-          id,
           name,
           email,
           login,
@@ -30,7 +30,8 @@ export class UpdateUsers {
       });
 
       return res.json(updatedUser);
-    } catch (error) {
+    } catch (error: any) {
+      console.error(error);
       return res.status(500).json({ error: "Ocorreu um erro ao atualizar o usuário" });
     }
   }

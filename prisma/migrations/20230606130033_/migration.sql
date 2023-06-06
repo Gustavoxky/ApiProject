@@ -9,7 +9,8 @@ CREATE TABLE "users" (
 
 -- CreateTable
 CREATE TABLE "file" (
-    "path" TEXT NOT NULL PRIMARY KEY
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "path" TEXT NOT NULL
 );
 
 -- CreateIndex
