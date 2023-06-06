@@ -5,8 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/server.ts",
-    "test": "jest",
-    "testServer": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/testServer.ts"
+    "test": "jest"
   },
   "dependencies": {
     "@prisma/client": "^4.15.0",
