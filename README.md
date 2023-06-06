@@ -18,18 +18,26 @@ Bcrypt </br>
 Multer </br>
 
 # Pré-requisitos
+```
 Node.js
+``` 
+```
 yarn
+```
 
 # Configuração do Banco de Dados
 Crie um arquivo .env na raiz do projeto com as seguintes variáveis de ambiente:
 
+```
 DATABASE_URL="file:./users.db"
+``` 
 
 # Execute as migrations para criar as tabelas do banco de dados:
 
-bash </br>
+```
+bash
 yarn prisma migrate dev
+``` 
 
 # Executando o Projeto
 
@@ -38,8 +46,11 @@ yarn dev </br>
 O servidor estará em execução em http://localhost:4003.
 
 # Executando os Testes
+
+```
 bash
-npm test
+yarn test
+``` 
 
 # Documentação dos Endpoints
  ## No insomnia: </br>
