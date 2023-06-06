@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import prisma from "../database/PrismaClient";
+import { Users } from "../types";
 
 export class DeleteUsers {
   async handle(req: Request, res: Response) {
     const { id } = req.params;
 
     try {
-      const user = await prisma.users.findUnique({
+      const user: Users | null = await prisma.users.findUnique({
         where: {
           id
         }
@@ -23,7 +24,7 @@ export class DeleteUsers {
       });
 
       return res.status(200).json({ message: "Usuário excluído com sucesso" });
-    } catch (error) {
+    } catch (error: any) {
       return res.status(500).json({ error: "Ocorreu um erro ao excluir o usuário" });
     }
   }

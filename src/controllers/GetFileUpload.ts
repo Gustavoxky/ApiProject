@@ -5,9 +5,9 @@ import prisma from "../database/PrismaClient";
 export class GetFileUpload {
   async handle(req: Request, res: Response) {
     try {
-      const images = await prisma.image.findMany();
-      const imagePaths = images.map((image) => ({
-        path: path.join(__dirname, "..", "..", "uploads", image.path),
+      const images = await prisma.file.findMany();
+      const imagePaths = images.map((file) => ({
+        path: path.join(__dirname, "..", "..", "uploads", file.path),
       }));
 
       return res.json(imagePaths);

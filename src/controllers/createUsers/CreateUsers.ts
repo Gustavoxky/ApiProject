@@ -1,9 +1,10 @@
 import bcrypt from 'bcrypt';
-import { Request, Response } from 'express';
-import prisma from '../database/PrismaClient';
+import { Response } from 'express';
+import prisma from '../../database/PrismaClient';
+import { CreateUserRequest, validateEmail } from './types';
 
 export class CreateUsers {
-  async handle(req: Request, res: Response) {
+  async handle(req: CreateUserRequest, res: Response) {
     const { name, email, login, password } = req.body;
 
     if (!name || !email || !login || !password) {
@@ -40,15 +41,10 @@ export class CreateUsers {
         },
       });
 
-      return res.status(200).json({message: "Usuário criado com sucesso"});
+      return res.status(200).json({ message: "Usuário criado com sucesso" });
     } catch (error) {
       console.error(error);
       return res.status(500).json({ error: 'Erro ao criar usuário.' });
     }
   }
-}
-
-export function validateEmail(email: string) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
 }
