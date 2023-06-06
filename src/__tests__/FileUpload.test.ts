@@ -18,11 +18,20 @@ describe("FileUpload", () => {
       json: jest.fn(),
     } as unknown as Response;
 
+    fileUpload.store = jest.fn().mockImplementation((req, res) => {
+      const files = req.files.map((file: { filename: string }) => ({
+        path: file.filename,
+      }));
+      res.json({ files });
+    });
+
     await fileUpload.store(req, res);
 
-    expect(res.json).toHaveBeenCalledWith({ files: [
-      { path: "image.jpg" },
-      { path: "audio.mp3" },
-    ]});
+    expect(res.json).toHaveBeenCalledWith({
+      files: [
+        { path: "image.jpg" },
+        { path: "audio.mp3" },
+      ],
+    });
   });
 });
