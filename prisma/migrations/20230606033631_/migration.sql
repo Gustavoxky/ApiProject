@@ -8,18 +8,8 @@ CREATE TABLE "users" (
 );
 
 -- CreateTable
-CREATE TABLE "post" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "description" TEXT NOT NULL,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
--- CreateTable
 CREATE TABLE "file" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "path" TEXT NOT NULL,
-    "postId" TEXT NOT NULL,
-    CONSTRAINT "file_postId_fkey" FOREIGN KEY ("postId") REFERENCES "post" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "path" TEXT NOT NULL PRIMARY KEY
 );
 
 -- CreateIndex

@@ -5,28 +5,18 @@ const prisma = new PrismaClient();
 
 export class FileUpload {
   async store(req: Request, res: Response) {
-    const { description } = req.body;
-    const requestImages = req.files as Express.Multer.File[];
+    const requestFiles = req.files as Express.Multer.File[];
 
-    const files = requestImages.map((File) => {
+    const files = requestFiles.map((file) => {
       return {
-        path: File.filename,
+        path: file.filename,
       };
     });
 
-    const post = await prisma.post.create({
-      data: {
-        description,
-        files: {
-          create: files,
-        },
-      },
-      select: {
-        description: true,
-        files: true,
-      },
-    });
+    const createdFiles = await Promise.all(
+      files.map((file) => prisma.file.create({ data: file }))
+    );
 
-    return res.json(post);
+    return res.json({ files: createdFiles });
   }
 }
