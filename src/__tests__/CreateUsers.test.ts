@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { CreateUsers } from "../controllers/CreateUsers";
 import prisma from "../database/PrismaClient";
-import { validateEmail } from "../interfaces";
+import { validateEmail } from "../utils/validateEmail";
 
 const mockRequest = () => {
   const req: Partial<Request> = {

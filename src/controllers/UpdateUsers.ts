@@ -1,20 +1,23 @@
 import { Request, Response } from "express";
 import prisma from "../database/PrismaClient";
-import { Users, validateEmail } from "../interfaces";
+import { Users } from "../interfaces";
+import { validateEmail } from "../utils/validateEmail";
+import { validateFields } from "../utils/validateFields";
 
 export class UpdateUsers {
   async handle(req: Request, res: Response) {
     const { id } = req.params;
     const { name, email, login, password }: Users = req.body;
 
-    if (!name || !email || !login || !password) {
+    const fieldsValid = validateFields(name, email, login, password);
+    if (!fieldsValid) {
       return res.status(400).json({ error: 'Os campos name, email, login e password são obrigatórios.' });
     }
 
-    if (!validateEmail(email)) {
+    const emailValid = validateEmail(email);
+    if (!emailValid) {
       return res.status(400).json({ error: 'Formato de e-mail inválido.' });
     }
-
 
     try {
       const existingUser = await prisma.users.findUnique({

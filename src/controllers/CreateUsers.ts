@@ -1,17 +1,21 @@
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import prisma from '../database/PrismaClient';
-import { Users, validateEmail } from '../interfaces';
+import { Users } from '../interfaces';
+import { validateEmail } from '../utils/validateEmail';
+import { validateFields } from '../utils/validateFields';
 
 export class CreateUsers {
   async handle(req: Request, res: Response) {
     const { name, email, login, password }: Users = req.body;
 
-    if (!name || !email || !login || !password) {
+    const fieldsValid = validateFields(name, email, login, password);
+    if (!fieldsValid) {
       return res.status(400).json({ error: 'Os campos name, email, login e password são obrigatórios.' });
     }
 
-    if (!validateEmail(email)) {
+    const emailValid = validateEmail(email);
+    if (!emailValid) {
       return res.status(400).json({ error: 'Formato de e-mail inválido.' });
     }
 
@@ -20,7 +24,7 @@ export class CreateUsers {
         where: {
           OR: [
             { email },
-            { login },
+            { login: login || '' },
           ],
         },
       });
@@ -30,14 +34,14 @@ export class CreateUsers {
       }
 
       const saltRounds = 10;
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      const hashedPassword = password ? await bcrypt.hash(password, saltRounds) : undefined;
 
       const user = await prisma.users.create({
         data: {
           name,
           email,
-          login,
-          password: hashedPassword,
+          login: login || '',
+          password: hashedPassword || '',
         },
       });
 
