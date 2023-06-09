@@ -45,9 +45,10 @@ yarn prisma studio
 ```
 
 # Executando o Projeto
-
-bash </br>
-yarn dev </br>
+```
+bash
+yarn dev
+```
 O servidor estará em execução em http://localhost:4003.
 
 # Executando os Testes
