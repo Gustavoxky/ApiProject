@@ -9,7 +9,8 @@ export default {
     }
   }),
   limits: {
-    fileSize: 5 * 1024 * 1024
+    maxFileSize: 5 * 1024 * 1024,
+    minFileSize: 0.001 * 1024 * 1024
   },
   fileFilter: (req, file, callback) => {
     const mimeType = [
