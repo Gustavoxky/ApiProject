@@ -1,4 +1,4 @@
-# testL5Network
+# API Project 
 O projeto é uma API em TypeScript com sete endpoints para criar, editar, listar e deletar usuários, pesquisar usuários do GitHub e fazer upload e download de arquivos de imagem e áudio. Ele utiliza Node.js, Express, Prisma, SQLite, Jest, Bcrypt e Multer para fornecer funcionalidades completas de gerenciamento de usuários e manipulação de arquivos.
 
 # Funcionalidades
