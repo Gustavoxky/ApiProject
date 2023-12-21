@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { FileUpload } from "../controllers/FileUpload";
+import { FileUpload } from "../controllers/services/files/FileUpload";
 
 describe("FileUpload", () => {
   it("Deve realizar o upload de arquivos corretamente", async () => {

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { FileDownload } from "../controllers/FileDownload";
 import prisma from "../database/PrismaClient";
+import { FileDownload } from "../controllers/services/files/FileDownload";
 
 jest.mock("../database/PrismaClient", () => ({
   file: {

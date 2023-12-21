@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import fetch from 'node-fetch';
-import { GetGithubUsers } from '../controllers/GetGithubUsers';
+import { GetGithubUsers } from '../controllers/services/users/GetGithubUsers';
 
 jest.mock('node-fetch');
 

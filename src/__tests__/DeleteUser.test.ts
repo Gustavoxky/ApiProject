@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { DeleteUsers } from "../controllers/DeleteUsers";
 import prisma from "../database/PrismaClient";
+import { DeleteUsers } from "../controllers/services/users/DeleteUsers";
 
 jest.mock("../database/PrismaClient", () => ({
   users: {

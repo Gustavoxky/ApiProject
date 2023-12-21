@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { UpdateUsers } from "../controllers/UpdateUsers";
 import prisma from "../database/PrismaClient";
+import { UpdateUsers } from "../controllers/services/users/UpdateUsers";
 
 jest.mock("../database/PrismaClient", () => ({
   users: {

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { CreateUsers } from "../controllers/CreateUsers";
 import prisma from "../database/PrismaClient";
+import { CreateUsers } from "../controllers/services/users/CreateUsers";
 import { validateEmail } from "../utils/validateEmail";
 
 const mockRequest = () => {

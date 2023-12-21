@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { GetUsers } from "../controllers/GetUsers";
 import prisma from "../database/PrismaClient";
+import { GetUsers } from "../controllers/services/users/GetUsers";
 
 jest.mock("../database/PrismaClient", () => ({
   users: {
@@ -33,6 +33,7 @@ describe("GetUsers", () => {
 
     expect(prisma.users.findMany).toBeCalledWith({
       select: {
+        id: true,
         name: true,
         email: true
       }
