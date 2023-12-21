@@ -1,20 +1,26 @@
 import { Request, Response } from "express";
 import Redis, { RedisOptions } from "ioredis";
-import prisma from "../../../database/PrismaClient";
-import { Users } from "../../../interfaces";
 import { redisConfig } from "../../../config/redis";
+import { Users } from "../../../interfaces";
+import prisma from "../../../database/PrismaClient";
+
 
 const { host, port } = redisConfig;
 
-// Ajuste as opções conforme necessário
+// Configurações do pool de conexão Redis
 const redisOptions: RedisOptions = {
   host,
   port,
   enableOfflineQueue: false,
   maxRetriesPerRequest: 10,
   enableReadyCheck: true,
+  // Adicione configurações específicas do pool de conexão, se necessário
+  // maxConnections: 10,
+  // minConnections: 1,
+  // connectionIdleTimeout: 10000,
 };
 
+// Pool de conexão Redis
 const redisClient: Redis = new Redis(redisOptions);
 
 const CACHE_KEY = "usersCache";
@@ -30,13 +36,19 @@ async function getFromCache(cacheKey: string): Promise<Users[] | null> {
     return cachedData ? JSON.parse(cachedData) : null;
   } catch (redisError) {
     handleRedisError(redisError);
+    // Implemente lógica de retry aqui, se necessário
     return null;
   }
 }
 
 async function setToCache(cacheKey: string, data: Users[]): Promise<void> {
   const serializedData = JSON.stringify(data);
-  await redisClient.setex(cacheKey, CACHE_EXPIRATION_TIME, serializedData);
+  
+  // Usando transações no Redis
+  const multi = redisClient.multi();
+  multi.setex(cacheKey, CACHE_EXPIRATION_TIME, serializedData);
+  // Adicione outras operações necessárias dentro da transação
+  await multi.exec();
 }
 
 async function getUsersFromDatabase(): Promise<Users[]> {

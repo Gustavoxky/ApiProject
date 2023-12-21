@@ -2,10 +2,14 @@ import { Request, Response } from "express";
 import prisma from "../database/PrismaClient";
 import { GetUsers } from "../controllers/services/users/GetUsers";
 
-jest.mock("../database/PrismaClient", () => ({
-  users: {
-    findMany: jest.fn()
-  }
+const redisMock = {
+  get: jest.fn(),
+  setex: jest.fn(),
+};
+
+jest.mock("ioredis", () => ({
+  __esModule: true,
+  default: redisMock,
 }));
 
 describe("GetUsers", () => {
@@ -14,30 +18,41 @@ describe("GetUsers", () => {
   });
 
   it("Deve retornar a lista de usuários", async () => {
-    const getUsers = new GetUsers();
-    const req = {
-      params: {}
-    } as Request;
-    const res = {
-      json: jest.fn()
-    } as unknown as Response;
-
+    // Configurando o mock para o Prisma
     const mockUserList = [
-      { name: "User 1", email: "user1@example.com" },
-      { name: "User 2", email: "user2@example.com" }
+      { id: '1', name: 'User 1', email: 'user1@example.com', login: 'user1', password: 'password1' },
+      { id: '2', name: 'User 2', email: 'user2@example.com', login: 'user2', password: 'password2' },
     ];
 
-    (prisma.users.findMany as jest.Mock).mockResolvedValue(mockUserList);
+    (prisma.users.findMany as jest.Mock).mockResolvedValueOnce({
+      $values: mockUserList,
+    });
 
+    // Configurando o mock para o Redis
+    (redisMock.get as jest.Mock).mockResolvedValueOnce(null);
+    (redisMock.setex as jest.Mock).mockResolvedValueOnce(null);
+
+    const getUsers = new GetUsers();
+    const req = {
+      params: {},
+    } as Request;
+    const res = {
+      json: jest.fn(),
+    } as unknown as Response;
+
+    // Chama getUsers.handle
     await getUsers.handle(req, res);
 
-    expect(prisma.users.findMany).toBeCalledWith({
+    expect(prisma.users.findMany).toHaveBeenCalledWith({
       select: {
         id: true,
         name: true,
-        email: true
-      }
+        email: true,
+        login: true,
+        password: true,
+      },
     });
-    expect(res.json).toBeCalledWith(mockUserList);
+    expect(redisMock.get).toHaveBeenCalledWith("usersCache");
+    expect(res.json).toHaveBeenCalledWith(mockUserList);
   });
 });

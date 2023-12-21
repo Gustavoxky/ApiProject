@@ -22,7 +22,13 @@ Multer </br>
 Node.js
 ``` 
 ```
-yarn
+npm
+```
+
+# baixando as dependencias
+
+```
+npm install
 ```
 
 # Configuração do Banco de Dados
@@ -35,29 +41,34 @@ DATABASE_URL="file:./users.db"
 # Execute as migrations para criar as tabelas do banco de dados:
 
 ```
-bash
-yarn prisma migrate dev
+
+npm run migrate
 ``` 
 ### Para ver os arquivos salvos no DB execute o seguinte comando:
 ```
-bash
-yarn prisma studio
+
+npm run prisma studio
 ```
 
 # Executando o Projeto
 ```
-bash
-yarn dev
+
+npm run dev
 ```
 O servidor estará em execução em http://localhost:4003.
 
-# Executando os Testes
+# Executando os Testes unitarios
 
 ```
-bash
-yarn test
-``` 
 
+npm run test
+``` 
+# Executando os Testes de performance
+
+```
+
+npm run performance-test
+``` 
 # Documentação dos Endpoints
  ## No insomnia: </br>
  ### Criar usuario:  </br>
@@ -111,6 +122,6 @@ yarn test
       
 
 # Contato
-Gustavo Correia - https://gustavoxky.github.io/me
+Gustavo Correia - https://gustavoxky.github.io/portfolio3d
 
-Link do Projeto: https://github.com/Gustavoxky/testL5
+Link do Projeto: https://github.com/Gustavoxky/ApiProject
