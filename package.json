@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/server.ts",
     "test": "jest",
-    "start": "node index.js",
+    "start": "node src/server.js",
     "migrate": "prisma migrate dev",
     "performance-test":"artillery run artillery-config.yml"
   },
