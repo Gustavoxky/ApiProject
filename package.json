@@ -1,11 +1,12 @@
 {
-  "name": "testL5",
+  "name": "api-project",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/server.ts",
     "test": "jest",
+    "start": "node index.js",
     "migrate": "prisma migrate dev",
     "performance-test":"artillery run artillery-config.yml"
   },
