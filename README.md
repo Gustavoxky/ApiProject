@@ -24,6 +24,9 @@ Node.js
 ```
 npm
 ```
+```
+redis
+```
 
 # baixando as dependencias
 
@@ -37,6 +40,30 @@ Crie um arquivo .env na raiz do projeto com as seguintes variáveis de ambiente:
 ```
 DATABASE_URL="file:./users.db"
 ``` 
+
+# configurando scripts do redis
+Crie um diretório scripts na rais do projeto e um arquivo chando starts-redis.sh no linux/mac ou start-redis.bat no windows
+
+no linux/mac
+
+```
+#!/bin/bash
+redis-server /path/to/redis.conf
+```
+
+no windows
+
+```
+@echo off
+cd C:\path\to\redis
+redis-server.exe redis.conf
+```
+
+Execute o seguine script no terminal do projeto: 
+
+```
+chmod +x start-redis.sh
+```
 
 # Execute as migrations para criar as tabelas do banco de dados:
 
