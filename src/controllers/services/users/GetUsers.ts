@@ -14,10 +14,6 @@ const redisOptions: RedisOptions = {
   enableOfflineQueue: false,
   maxRetriesPerRequest: 10,
   enableReadyCheck: true,
-  // Adicione configurações específicas do pool de conexão, se necessário
-  // maxConnections: 10,
-  // minConnections: 1,
-  // connectionIdleTimeout: 10000,
 };
 
 // Pool de conexão Redis
